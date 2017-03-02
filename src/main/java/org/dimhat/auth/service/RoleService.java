@@ -11,4 +11,6 @@ package org.dimhat.auth.service;
  * @data : 2017/3/1
  */
 public interface RoleService {
+
+
 }

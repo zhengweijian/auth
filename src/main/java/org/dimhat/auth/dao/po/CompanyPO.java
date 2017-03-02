@@ -28,7 +28,7 @@ public class CompanyPO implements Serializable {
     @Column(name = "salt", nullable = false, length = 32, columnDefinition = "盐")
     private String salt;
 
-    @Column(name = "name", nullable = false, length = 32, columnDefinition = "公司名称")
+    @Column(name = "name", nullable = true, length = 32, columnDefinition = "公司名称")
     private String name;
 
     @Column(name = "status", nullable = false, columnDefinition = "状态，1是正常，0是冻结")
@@ -44,6 +44,36 @@ public class CompanyPO implements Serializable {
 
     @Column(name="type",nullable = false,columnDefinition = "账号类型，1是管理员，2是商家，3是买家")
     private Short type;
+
+    @Column(name="gmt_last_login",nullable = false,columnDefinition = "最后登录时间")
+    private Date gmtLastLogin;
+
+    @Column(name="last_login_ip",nullable = false,columnDefinition = "最后登录IP")
+    private String lastLoginIP;
+
+    public Date getGmtLastLogin() {
+        return gmtLastLogin;
+    }
+
+    public void setGmtLastLogin(Date gmtLastLogin) {
+        this.gmtLastLogin = gmtLastLogin;
+    }
+
+    public String getLastLoginIP() {
+        return lastLoginIP;
+    }
+
+    public void setLastLoginIP(String lastLoginIP) {
+        this.lastLoginIP = lastLoginIP;
+    }
+
+    public Short getType() {
+        return type;
+    }
+
+    public void setType(Short type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;

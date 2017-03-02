@@ -1,5 +1,6 @@
 package org.dimhat.auth.service;
 
+import org.dimhat.auth.exception.user.UserNotFindException;
 import org.dimhat.auth.service.dto.CompanyDTO;
 
 /**
@@ -23,7 +24,7 @@ public interface CompanyService {
      * @param password 密码
      * @return 公司对象
      */
-    CompanyDTO login(String username, String password);
+    CompanyDTO login(String username, String password) throws UserNotFindException;
 
     /**
      * 更新公司信息

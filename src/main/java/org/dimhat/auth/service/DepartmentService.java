@@ -1,5 +1,7 @@
 package org.dimhat.auth.service;
 
+import org.dimhat.auth.service.dto.DepartmentDTO;
+
 /**
  * 部门下有员工，子部门都无法删除
  * 每个账号有个根“我的团队”无法删除和移动，只能新建子部门和重命名，
@@ -10,9 +12,11 @@ package org.dimhat.auth.service;
  */
 public interface DepartmentService {
 
-    Long save();
+    Long save(DepartmentDTO dto);
 
-    Long remove();
+    void remove(Long id);
 
-    void update();
+    void update(DepartmentDTO dto);
+
+    DepartmentDTO getRootDepartment(Long companyId);
 }
