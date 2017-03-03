@@ -3,6 +3,8 @@ package org.dimhat.auth.service.impl;
 import org.dimhat.auth.dao.BaseDao;
 import org.dimhat.auth.dao.CompanyDao;
 import org.dimhat.auth.dao.po.CompanyPO;
+import org.dimhat.auth.exception.user.PasswordErrorException;
+import org.dimhat.auth.exception.user.UserFreezeException;
 import org.dimhat.auth.exception.user.UserNotFindException;
 import org.dimhat.auth.service.CompanyService;
 import org.dimhat.auth.service.dto.CompanyDTO;
@@ -50,7 +52,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyDTO login(String username, String password) throws UserNotFindException {
+    public CompanyDTO login(String username, String password) throws UserNotFindException, PasswordErrorException, UserFreezeException {
         CompanyPO companyPO = companyDao.getByUsername(username);
         if(companyPO==null){
             throw new UserNotFindException();
@@ -58,20 +60,34 @@ public class CompanyServiceImpl implements CompanyService {
         String salt = companyPO.getSalt();
         String md5Password = EncryptUtils.md5(password + salt);
         if(md5Password.equals(companyPO.getPassword())){
-            CompanyDTO dto = new CompanyDTO();
-            BeanUtils.copyProperties(companyPO,dto);
-            return dto;
+            if(companyPO.getStatus()!=1){
+                throw new UserFreezeException();
+            }else{//success
+                CompanyDTO dto = new CompanyDTO();
+                BeanUtils.copyProperties(companyPO,dto);
+                return dto;
+            }
+        }else{
+            throw new PasswordErrorException();
         }
-        return null;
     }
 
     @Override
-    public void update(CompanyDTO companyBO) {
-
+    public void update(CompanyDTO company) {
+        CompanyPO po = (CompanyPO) baseDao.get(CompanyPO.class,company.getId());
+        BeanUtils.copyProperties(company,po);
+        baseDao.update(po);
     }
 
     @Override
     public CompanyDTO getById(Long id) {
-        return null;
+        CompanyPO po = (CompanyPO) baseDao.get(CompanyPO.class,id);
+        return trans2Dto(po);
+    }
+
+    private CompanyDTO trans2Dto(CompanyPO po){
+        CompanyDTO dto = new CompanyDTO();
+        BeanUtils.copyProperties(po,dto);
+        return dto;
     }
 }

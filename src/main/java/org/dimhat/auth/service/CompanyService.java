@@ -1,5 +1,7 @@
 package org.dimhat.auth.service;
 
+import org.dimhat.auth.exception.user.PasswordErrorException;
+import org.dimhat.auth.exception.user.UserFreezeException;
 import org.dimhat.auth.exception.user.UserNotFindException;
 import org.dimhat.auth.service.dto.CompanyDTO;
 
@@ -24,13 +26,13 @@ public interface CompanyService {
      * @param password 密码
      * @return 公司对象
      */
-    CompanyDTO login(String username, String password) throws UserNotFindException;
+    CompanyDTO login(String username, String password) throws UserNotFindException, PasswordErrorException, UserFreezeException;
 
     /**
      * 更新公司信息
-     * @param companyBO
+     * @param company
      */
-    void update(CompanyDTO companyBO);
+    void update(CompanyDTO company);
 
     /**
      * 获取公司信息
