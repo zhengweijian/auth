@@ -1,3 +1,63 @@
 <html>
-<h2>Hello World!</h2>
+<head>
+    <title>首页</title>
+</head>
+<body>
+	<h2>变量</h2>
+	<h3>变量的定义</h3>
+	#set($name="bill<script src='/js/index.js'></script>")
+	#set($words="hello,$name")
+	$words;
+
+	<h3>变量的规范写法</h3>
+	$namex
+	${name}x
+
+	<h3>变量的赋值</h3>
+	#set($person.name="bill")
+	#set($person.age=18)
+
+	<h2>循环</h2>
+	#set($list=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"])
+
+	#foreach($ele in $list)
+		${foreach.count}. This is $ele.<br/>
+		#if(!$foreach.hasNext)
+			This is end;
+		#end
+	#end
+
+	#foreach($key in $person.keySet())
+		Key:$key -> Value:$person.get($key) <br>
+	#end
+
+	<h2>条件语句</h2>
+	#if(true)
+		1;
+	#elseif(true)
+		2;
+	#else
+		3;
+	#end
+
+	<h2>注释</h2>
+	## 单行注释
+
+	#*
+		多行注释
+	 *#
+
+	#** 文档格式
+	 *
+	 *#
+
+    <h2>宏</h2>
+		#macro(sayhi $name)
+			Hi,$name.
+		#end
+
+		#sayhi("bill")
+
+
+</body>
 </html>

@@ -13,6 +13,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CompanyDaoImpl implements CompanyDao{
 
+    public CompanyDaoImpl() {
+        System.out.println("-----------company dao!");
+    }
+
     @Autowired
     private BaseDao<CompanyPO> baseDao;
 

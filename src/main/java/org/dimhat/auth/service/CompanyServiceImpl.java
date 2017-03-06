@@ -1,4 +1,4 @@
-package org.dimhat.auth.service.impl;
+package org.dimhat.auth.service;
 
 import org.dimhat.auth.dao.BaseDao;
 import org.dimhat.auth.dao.CompanyDao;
@@ -6,7 +6,6 @@ import org.dimhat.auth.dao.po.CompanyPO;
 import org.dimhat.auth.exception.user.PasswordErrorException;
 import org.dimhat.auth.exception.user.UserFreezeException;
 import org.dimhat.auth.exception.user.UserNotFindException;
-import org.dimhat.auth.service.CompanyService;
 import org.dimhat.auth.service.dto.CompanyDTO;
 import org.dimhat.auth.util.EncryptUtils;
 import org.springframework.beans.BeanUtils;
@@ -29,6 +28,10 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyDao companyDao;
+
+    public CompanyServiceImpl() {
+        System.out.println("company生成！-----");
+    }
 
     @Override
     public Long register(String username, String password, Short type) {

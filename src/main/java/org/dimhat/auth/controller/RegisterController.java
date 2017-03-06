@@ -18,12 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @data : 2017/3/1
  */
 @Controller
-@RequestMapping("/register")
+@RequestMapping("/")
 public class RegisterController {
 
     private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
-    @Autowired
     private CompanyService companyService;
 
     public RegisterController() {
@@ -32,13 +31,13 @@ public class RegisterController {
         logger.error("controller is being creadted!!!");
     }
 
-    @RequestMapping(value = "",method = RequestMethod.GET)
+    @RequestMapping(value = "register",method = RequestMethod.GET)
     public String register(Model model,RegisterForm form){
         model.addAttribute("form",form);
         return "register";
     }
 
-    @RequestMapping(value="",method = RequestMethod.POST)
+    @RequestMapping(value="register",method = RequestMethod.POST)
     public String doRegister(@Validated RegisterForm form, Errors errors, Model model, RedirectAttributes ra){
         if(errors.hasErrors()){
             ra.addFlashAttribute("error",errors.getFieldError().getDefaultMessage());
