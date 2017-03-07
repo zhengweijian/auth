@@ -31,11 +31,15 @@ public class CategoryPO implements Serializable {
     @Column(name="priority",nullable = false,columnDefinition = "优先级，值大靠前")
     private Integer priority;
 
+    //冗余映射
+    @Column(name="parent_id",columnDefinition = "父id",insertable = false,updatable = false)
+    private Long parentId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="parent_id",columnDefinition = "父分类")
     private CategoryPO parentCategory;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "parentCategory")
     private List<CategoryPO> subCategories;
 
     public Long getId() {
@@ -92,5 +96,40 @@ public class CategoryPO implements Serializable {
 
     public void setSubCategories(List<CategoryPO> subCategories) {
         this.subCategories = subCategories;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CategoryPO that = (CategoryPO) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (depth != null ? !depth.equals(that.depth) : that.depth != null) return false;
+        if (deleted != null ? !deleted.equals(that.deleted) : that.deleted != null) return false;
+        if (priority != null ? !priority.equals(that.priority) : that.priority != null) return false;
+        return parentId != null ? parentId.equals(that.parentId) : that.parentId == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (depth != null ? depth.hashCode() : 0);
+        result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
+        result = 31 * result + (priority != null ? priority.hashCode() : 0);
+        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
+        return result;
     }
 }

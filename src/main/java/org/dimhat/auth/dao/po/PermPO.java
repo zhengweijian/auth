@@ -27,29 +27,17 @@ public class PermPO implements Serializable{
     private String permission;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="parent_id",nullable = true,columnDefinition = "父权限")
+    @JoinColumn(name="parent_id",columnDefinition = "父权限")
     private PermPO parentPerm;
 
-    @Column(name="is_deleted",nullable = false,columnDefinition = "是否删除")
+    @Column(name="is_deleted",nullable = false, columnDefinition = "是否删除")
     private Boolean deleted;
 
     @Column(name="depth",nullable = false,columnDefinition = "深度")
     private Integer depth;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "parentPerm")
     private List<PermPO> subPerms = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="auth_role_perm",joinColumns = {@JoinColumn(name="perm_id")},inverseJoinColumns = {@JoinColumn(name="role_id")})
-    private List<RolePO> roles = new ArrayList<>();
-
-    public List<RolePO> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<RolePO> roles) {
-        this.roles = roles;
-    }
 
     public Long getId() {
         return id;

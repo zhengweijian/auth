@@ -45,10 +45,10 @@ public class CompanyPO implements Serializable {
     @Column(name="type",nullable = false,columnDefinition = "账号类型，1是管理员，2是商家，3是买家")
     private Short type;
 
-    @Column(name="gmt_last_login",nullable = false,columnDefinition = "最后登录时间")
+    @Column(name="gmt_last_login",columnDefinition = "最后登录时间")
     private Date gmtLastLogin;
 
-    @Column(name="last_login_ip",nullable = false,columnDefinition = "最后登录IP")
+    @Column(name="last_login_ip",columnDefinition = "最后登录IP")
     private String lastLoginIP;
 
     public Date getGmtLastLogin() {

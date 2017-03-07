@@ -3,7 +3,6 @@ package org.dimhat.auth.dao.po;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 角色表（真删除）
@@ -41,17 +40,6 @@ public class RolePO implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id",nullable = true,columnDefinition = "创建公司，null为平台创建无法删除")
     private CompanyPO creator;
-
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "permPO")
-    private List<PermPO> perms;
-
-    public List<PermPO> getPerms() {
-        return perms;
-    }
-
-    public void setPerms(List<PermPO> perms) {
-        this.perms = perms;
-    }
 
     public Long getId() {
         return id;

@@ -40,7 +40,7 @@ public class DepartmentPO implements Serializable{
     @JoinColumn(name = "parent_id",columnDefinition = "父部门id")
     private DepartmentPO parentDepartment;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "parentDepartment")
     private List<DepartmentPO> subDepartments = new ArrayList<>();
 
     public DepartmentPO getParentDepartment() {

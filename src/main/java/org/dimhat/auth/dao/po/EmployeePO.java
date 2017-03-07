@@ -38,8 +38,12 @@ public class EmployeePO implements Serializable {
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="department_id",nullable = false,columnDefinition = "所属部门")
+    @JoinColumn(name="department_id",nullable = false,columnDefinition = "所属部门，根部门存在且无法删除")
     private DepartmentPO department;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="company_id",nullable = false,columnDefinition = "所属公司")
+    private CompanyPO company;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "gmt_create", nullable = false)
