@@ -9,4 +9,6 @@ import org.dimhat.auth.dao.po.CompanyPO;
 public interface CompanyDao {
 
     CompanyPO getByUsername(String username);
+
+    CompanyPO getByEmail(String email);
 }

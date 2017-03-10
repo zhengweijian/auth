@@ -24,4 +24,9 @@ public class CompanyDaoImpl implements CompanyDao{
     public CompanyPO getByUsername(String username) {
         return baseDao.get("from CompanyPO where username = ?",new Object[]{username});
     }
+
+    @Override
+    public CompanyPO getByEmail(String email){
+        return baseDao.get("from CompanyPO where email = ?",new Object[]{email});
+    }
 }

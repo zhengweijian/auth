@@ -10,6 +10,7 @@ import org.dimhat.auth.service.dto.CompanyDTO;
 import org.dimhat.auth.web.model.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -29,6 +30,7 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    @Autowired
     private CompanyService companyService;
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
@@ -61,12 +63,12 @@ public class LoginController {
     }
 
     private UserInfo doLogin(String username,String password) throws UserNotFindException, PasswordErrorException, UserFreezeException {
-        if(username.indexOf(Constants.USERNAME_SPLIT)!=-1){
+        if(username.indexOf(Constants.USERNAME_SPLIT)==-1){//company login
             CompanyDTO companyDTO = companyService.login(username, password);
             UserInfo userInfo = buildUserInfo(companyDTO);
             return userInfo;
         }else{//employee login
-            return null;
+            throw new RuntimeException("unsupport employee login");
         }
     }
 

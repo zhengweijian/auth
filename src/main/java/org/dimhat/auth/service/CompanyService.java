@@ -18,7 +18,7 @@ public interface CompanyService {
      * @param type 类型，1是管理员，2是商家，3是买家
      * @return 公司id
      */
-    Long register(String username,String password,Short type);
+    Long register(String username,String email,String password,Short type);
 
     /**
      * 用户（公司）登录

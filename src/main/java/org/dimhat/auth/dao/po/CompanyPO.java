@@ -34,11 +34,11 @@ public class CompanyPO implements Serializable {
     @Column(name = "status", nullable = false, columnDefinition = "状态，1是正常，0是冻结")
     private Short status;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "gmt_create", nullable = false)
     private Date gmtCreate;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "gmt_modified", nullable = false)
     private Date gmtModified;
 
@@ -50,6 +50,18 @@ public class CompanyPO implements Serializable {
 
     @Column(name="last_login_ip",columnDefinition = "最后登录IP")
     private String lastLoginIP;
+
+    @Column(name="email",nullable = false,unique = true,length = 64,columnDefinition = "邮箱")
+    private String email;
+
+    @Column(name="email_activated",nullable = false,columnDefinition = "邮箱是否激活")
+    private Boolean emailActivated;
+
+    @Column(name="token",length = 32,columnDefinition = "token")
+    private String token;
+
+    @Column(name="token_exptime",columnDefinition = "token到期时间")
+    private Date tokenExptime;
 
     public Date getGmtLastLogin() {
         return gmtLastLogin;
@@ -137,5 +149,37 @@ public class CompanyPO implements Serializable {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getEmailActivated() {
+        return emailActivated;
+    }
+
+    public void setEmailActivated(Boolean emailActivated) {
+        this.emailActivated = emailActivated;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getTokenExptime() {
+        return tokenExptime;
+    }
+
+    public void setTokenExptime(Date tokenExptime) {
+        this.tokenExptime = tokenExptime;
     }
 }

@@ -13,27 +13,29 @@
     <mvc:default-servlet-handler/>
 
     <!--模板信息配置-->
-    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath"  value="/WEB-INF/velocity/" /><!-- 設置模板防止位置-->
-        <property name="velocityProperties">
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/ftl/" />
+        <property name="freemarkerSettings">
             <props>
-                <prop key="directive.foreach.counter.name">loopCounter</prop>
-                <prop key="directive.foreach.counter.initial.value">0</prop>
-                <prop key="input.encoding">UTF-8</prop><!-- 指定模板引擎进行模板处理的编码 -->
-                <prop key="output.encoding">UTF-8</prop><!-- 指定输出流的编码 -->
+                <prop key="template_update_delay">0</prop>
+                <prop key="default_encoding">UTF-8</prop>
+                <prop key="number_format">0.##########</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="classic_compatible">true</prop>
+                <prop key="template_exception_handler">ignore</prop>
             </props>
         </property>
     </bean>
 
-    <bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-        <property name="prefix" value="/"/>
-        <property name="suffix" value=".vm"/>
-        <property name="dateToolAttribute" value="date"/><!--日期函数-->
-        <property name="numberToolAttribute" value="number"/><!--数字函数-->
-        <property name="contentType" value="text/html;charset=UTF-8"/>
-        <property name="exposeSpringMacroHelpers" value="true"/><!--spring对宏定义的支持-->
-        <property name="exposeRequestAttributes" value="true" /><!--是否开放request属性-->
-        <property name="requestContextAttribute" value="rc"/><!--request属性引用名称-->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="true" />
+        <property name="prefix" value="" />
+        <property name="suffix" value=".ftl" />
+        <property name="contentType" value="text/html;charset=UTF-8"></property>
+        <property name="requestContextAttribute" value="request" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
     </bean>
 
 </beans>

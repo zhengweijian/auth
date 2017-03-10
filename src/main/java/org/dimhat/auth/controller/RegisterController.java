@@ -4,7 +4,6 @@ import org.dimhat.auth.controller.form.RegisterForm;
 import org.dimhat.auth.service.CompanyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -43,7 +42,7 @@ public class RegisterController {
             ra.addFlashAttribute("error",errors.getFieldError().getDefaultMessage());
             return register(model,form);
         }
-        Long companyId = companyService.register(form.getUsername(),form.getPassword(),form.getType());
+        Long companyId = companyService.register(form.getUsername(),form.getEmail(),form.getPassword(),form.getType());
         logger.info("register success! username:{},type:{},companyId:{}",form.getUsername(),form.getType(),companyId);
         return "redirect:/login";
     }

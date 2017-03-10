@@ -9,11 +9,21 @@ public class RegisterForm {
     //不允许有特殊字符 [A-Za-z0-9_]
     private String username;
 
+    private String email;
+
     //6
     private String password;
 
     //limit 2,3
     private Short type;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Short getType() {
         return type;

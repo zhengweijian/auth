@@ -111,14 +111,9 @@
             <version>3.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-tools</artifactId>
-            <version>2.0</version>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.23</version>
         </dependency>
 
         <!--日志-->
@@ -137,6 +132,13 @@
             <artifactId>logback-classic</artifactId>
             <version>1.1.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.7</version>
+        </dependency>
+
 
     </dependencies>
 
