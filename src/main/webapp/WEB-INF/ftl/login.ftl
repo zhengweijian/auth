@@ -12,7 +12,6 @@
 			<div class="auth-form-header">
 				<h1>Sign in to DimHat</h1>
 				${msg+'<script>alert("haha")</script>'}
-			</div>
             <form action="/login" class="form" method="post">
 				<div class="auth-form-body">
                     <div class="form-group">

@@ -41,9 +41,6 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private CompanyDao companyDao;
 
-    public CompanyServiceImpl() {
-        System.out.println("company生成！-----");
-    }
 
     /**
      * 发送激活邮件

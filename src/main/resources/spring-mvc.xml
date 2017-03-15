@@ -12,8 +12,8 @@
 
     <mvc:default-servlet-handler/>
 
-    <!--模板信息配置-->
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <!--模板信息配置 org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer-->
+    <bean id="freemarkerConfig" class="org.ftl.HtmlFreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/ftl/" />
         <property name="freemarkerSettings">
             <props>
