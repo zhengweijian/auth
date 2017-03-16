@@ -32,13 +32,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     private static final Logger logger = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
-    @Autowired
     private SystemProperties properties;
 
-    @Autowired
-    private BaseDao baseDao;
-
-    @Autowired
     private CompanyDao companyDao;
 
 
@@ -88,7 +83,7 @@ public class CompanyServiceImpl implements CompanyService {
         po.setPassword(password);
         po = this.encryptPassword(po);
 
-        baseDao.save(po);
+        companyDao.save(po);
         logger.info("新用户注册成功：username={},email={},type={}",username,email,type);
         return po.getId();
     }
@@ -129,14 +124,14 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void update(CompanyDTO company) {
-        CompanyPO po = (CompanyPO) baseDao.get(CompanyPO.class,company.getId());
+        CompanyPO po = (CompanyPO) companyDao.get(CompanyPO.class,company.getId());
         BeanUtils.copyProperties(company,po);
-        baseDao.update(po);
+        companyDao.update(po);
     }
 
     @Override
     public CompanyDTO getById(Long id) {
-        CompanyPO po = (CompanyPO) baseDao.get(CompanyPO.class,id);
+        CompanyPO po = (CompanyPO) companyDao.get(CompanyPO.class,id);
         return trans2Dto(po);
     }
 
@@ -144,5 +139,15 @@ public class CompanyServiceImpl implements CompanyService {
         CompanyDTO dto = new CompanyDTO();
         BeanUtils.copyProperties(po,dto);
         return dto;
+    }
+
+    @Autowired
+    public void setProperties(SystemProperties properties) {
+        this.properties = properties;
+    }
+
+    @Autowired
+    public void setCompanyDao(CompanyDao companyDao) {
+        this.companyDao = companyDao;
     }
 }

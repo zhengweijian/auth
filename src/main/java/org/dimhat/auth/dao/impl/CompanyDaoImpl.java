@@ -1,9 +1,7 @@
 package org.dimhat.auth.dao.impl;
 
-import org.dimhat.auth.dao.BaseDao;
 import org.dimhat.auth.dao.CompanyDao;
 import org.dimhat.auth.dao.po.CompanyPO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,18 +9,17 @@ import org.springframework.stereotype.Repository;
  * @data : 2017/3/2
  */
 @Repository
-public class CompanyDaoImpl implements CompanyDao{
-
-    @Autowired
-    private BaseDao<CompanyPO> baseDao;
+public class CompanyDaoImpl extends BaseDaoImpl implements CompanyDao{
 
     @Override
     public CompanyPO getByUsername(String username) {
-        return baseDao.get("from CompanyPO where username = ?",new Object[]{username});
+        String hql = "from CompanyPO where username = ?";
+        return (CompanyPO) this.get(hql,new Object[]{username});
     }
 
     @Override
     public CompanyPO getByEmail(String email){
-        return baseDao.get("from CompanyPO where email = ?",new Object[]{email});
+        String hql = "from CompanyPO where email = ?";
+        return (CompanyPO) this.get(hql,new Object[]{email});
     }
 }

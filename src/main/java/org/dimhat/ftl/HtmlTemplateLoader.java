@@ -1,4 +1,4 @@
-package org.ftl;
+package org.dimhat.ftl;
 
 import freemarker.cache.TemplateLoader;
 import org.apache.commons.io.IOUtils;

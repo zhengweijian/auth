@@ -6,7 +6,7 @@ import org.dimhat.auth.dao.po.CompanyPO;
  * @author : zwj
  * @data : 2017/3/1
  */
-public interface CompanyDao {
+public interface CompanyDao extends BaseDao{
 
     CompanyPO getByUsername(String username);
 
