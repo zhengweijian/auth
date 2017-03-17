@@ -6,7 +6,7 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.dimhat.auth.service,org.dimhat.auth.dao"/>
+    <context:component-scan base-package="org.dimhat.usercenter.service,org.dimhat.usercenter.dao"/>
 
     <!-- profile spring.profiles.active-->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -61,7 +61,7 @@
                 <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
-        <property name="packagesToScan" value="org.dimhat.auth.dao"></property>
+        <property name="packagesToScan" value="org.dimhat.usercenter.dao"></property>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
@@ -71,8 +71,9 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 
-    <bean class="org.dimhat.auth.SystemProperties">
+    <bean class="org.dimhat.usercenter.SystemProperties">
         <property name="emailTimeOut" value="10"/>
     </bean>
+
 
 </beans>

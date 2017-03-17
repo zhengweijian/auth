@@ -37,6 +37,7 @@
                     </label>
                     <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
                     <p class="note">至少使用一个小写字母，一个数字和七个字符。</p>
+                    <span id="passstrength"></span>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-block btn-success" type="submit"><b>注册</b></button>
@@ -47,5 +48,7 @@
     </div>
 </div>
 
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
 </body>
 </html>

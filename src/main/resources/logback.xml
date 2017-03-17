@@ -30,7 +30,7 @@
         <!--<appender-ref ref="file"/>-->
     </root>
 
-    <logger name="org.dimhat.auth" additivity="false">
+    <logger name="org.dimhat.usercenter" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="console"/>
         <appender-ref ref="file"/>

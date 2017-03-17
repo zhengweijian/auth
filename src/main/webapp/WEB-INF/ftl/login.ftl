@@ -7,12 +7,23 @@
 <body>
 
 	<div class="container">
-		<div style="height:80px;"></div>
+		<div class="header-logo">
+            <a href="/">
+            	<img src="/img/logo.jpg" alt="logo">
+            </a>
+		</div>
 		<div id="login" class="auth-form">
 			<div class="auth-form-header">
 				<h1>Sign in to DimHat</h1>
-
-			<#noescape>${msg+'<script>alert("haha")</script>'}</#noescape>
+				<#if msg??>
+				<div class="flash-error">
+					<button class="flash-close" type="button" aria-label="Dismiss this message">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+					用户名或密码错误。
+				</div>
+				</#if>
+			</div>
             <form action="/login" class="form" method="post">
 				<div class="auth-form-body">
                     <div class="form-group">
@@ -26,6 +37,14 @@
 						</label>
                         <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
                     </div>
+					<#--错误多次需要验证码-->
+					<#if needVericode>
+					<div class="form-group vericode">
+                        <label for="username" class="control-label">验证码</label>
+                        <input type="text" class="form-control vericode-input" name="j_captcha_response"><!--
+						--><img src="vericode.jpg" class="vericode-img" alt="验证码">
+					</div>
+					</#if>
                     <div class="form-group">
                         <button class="btn btn-block btn-success" type="submit"><b>登录</b></button>
                     </div>
@@ -35,5 +54,7 @@
 		</div>
 	</div>
 
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/index.js"></script>
 </body>
 </html>
