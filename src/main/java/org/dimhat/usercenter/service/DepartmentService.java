@@ -12,11 +12,23 @@ import org.dimhat.usercenter.service.dto.DepartmentDTO;
  */
 public interface DepartmentService {
 
-    Long save(DepartmentDTO dto);
+    /**
+     * 增加部门
+     * @param companyId 公司id
+     * @param parentDepartmentId 父部门id
+     * @param departmentName 新增部门名称
+     * @return 如果父公司和父部门存在则返回新增部门id，否则返回null
+     */
+    Long addDepartment(Long companyId,Long parentDepartmentId,String departmentName);
 
-    void remove(Long id);
+    /**
+     * 删除部门
+     * @param id 部门id
+     * @return 删除成功返回true，存在子部门无法删除返回false
+     */
+    boolean deleteById(Long id);
 
-    void update(DepartmentDTO dto);
+    void update(Long id,String departmentName);
 
     DepartmentDTO getRootDepartment(Long companyId);
 }

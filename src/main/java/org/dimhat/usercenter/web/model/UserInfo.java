@@ -3,7 +3,7 @@ package org.dimhat.usercenter.web.model;
 import java.io.Serializable;
 
 /**
- * 登录用户模型
+ * 登录用户模型，放置在session中
  * @author : zwj
  * @data : 2017/3/3
  */

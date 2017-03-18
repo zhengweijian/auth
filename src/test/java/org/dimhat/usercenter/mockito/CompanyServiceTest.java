@@ -3,9 +3,6 @@ package org.dimhat.usercenter.mockito;
 import org.dimhat.usercenter.SystemProperties;
 import org.dimhat.usercenter.dao.CompanyDao;
 import org.dimhat.usercenter.dao.po.CompanyPO;
-import org.dimhat.usercenter.exception.user.PasswordErrorException;
-import org.dimhat.usercenter.exception.user.UserFreezeException;
-import org.dimhat.usercenter.exception.user.UserNotFindException;
 import org.dimhat.usercenter.service.dto.CompanyDTO;
 import org.dimhat.usercenter.service.impl.CompanyServiceImpl;
 import org.junit.Assert;
@@ -37,7 +34,7 @@ public class CompanyServiceTest {
     }
 
     @Test
-    public void testLoginByUsername() throws UserNotFindException, PasswordErrorException, UserFreezeException {
+    public void testLoginByUsername() {
         String username = "admin";
         String password = "123456";
 
@@ -55,17 +52,12 @@ public class CompanyServiceTest {
     }
 
     @Test
-    public void testLoginNotFound() throws PasswordErrorException, UserFreezeException {
+    public void testLoginNotFound(){
         String username = "admin";
         String password = "123456";
 
         when(companyDao.getByUsername(username)).thenReturn(null);
-        try{
-            CompanyDTO companyDTO = companyService.login(username, password);
-            Assert.assertTrue(false);
-        }catch (UserNotFindException ufe){
-            verify(companyDao).getByUsername(eq(username));//验证dao调用
-            Assert.assertTrue(true);
-        }
+        CompanyDTO companyDTO = companyService.login(username, password);
+        Assert.assertNull(companyDTO);
     }
 }

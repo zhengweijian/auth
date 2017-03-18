@@ -6,13 +6,16 @@ package org.dimhat.usercenter;
  */
 public class SystemProperties {
 
-    private Integer emailTimeOut = 24;
+    /**
+     * 邮箱验证超时时间（单位分钟）
+     */
+    private Integer emailValidTimeOut = 24 * 60;
 
-    public Integer getEmailTimeOut() {
-        return emailTimeOut;
+    public Integer getEmailValidTimeOut() {
+        return emailValidTimeOut;
     }
 
-    public void setEmailTimeOut(Integer emailTimeOut) {
-        this.emailTimeOut = emailTimeOut;
+    public void setEmailValidTimeOut(Integer emailValidTimeOut) {
+        this.emailValidTimeOut = emailValidTimeOut;
     }
 }

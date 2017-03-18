@@ -12,6 +12,11 @@ import org.springframework.stereotype.Repository;
 public class CompanyDaoImpl extends BaseDaoImpl implements CompanyDao{
 
     @Override
+    public CompanyPO getById(Long id) {
+        return (CompanyPO) this.get(CompanyPO.class,id);
+    }
+
+    @Override
     public CompanyPO getByUsername(String username) {
         String hql = "from CompanyPO where username = ?";
         return (CompanyPO) this.get(hql,new Object[]{username});

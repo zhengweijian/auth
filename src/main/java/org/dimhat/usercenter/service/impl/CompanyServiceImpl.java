@@ -3,9 +3,6 @@ package org.dimhat.usercenter.service.impl;
 import org.dimhat.usercenter.SystemProperties;
 import org.dimhat.usercenter.dao.CompanyDao;
 import org.dimhat.usercenter.dao.po.CompanyPO;
-import org.dimhat.usercenter.exception.user.PasswordErrorException;
-import org.dimhat.usercenter.exception.user.UserFreezeException;
-import org.dimhat.usercenter.exception.user.UserNotFindException;
 import org.dimhat.usercenter.service.CompanyService;
 import org.dimhat.usercenter.service.dto.CompanyDTO;
 import org.dimhat.usercenter.util.EncryptUtils;
@@ -43,10 +40,10 @@ public class CompanyServiceImpl implements CompanyService {
      */
     private CompanyPO sendActiveEmail(CompanyPO po){
         String token = UUID.randomUUID().toString().replaceAll("-","");//32位token
-        String content="激活码【"+token+"】，请在【"+properties.getEmailTimeOut()+"】小时内激活";
+        String content="激活码【"+token+"】，请在【"+properties.getEmailValidTimeOut()/60+"】小时内激活";
         logger.info("异步队列 发送激活邮件到：{}，内容是：{}",po.getEmail(),content);
         po.setToken(token);
-        DateTime exptime = new DateTime().plusHours(properties.getEmailTimeOut());
+        DateTime exptime = new DateTime().plusMinutes(properties.getEmailValidTimeOut());
         po.setTokenExptime(exptime.toDate());
         po.setEmailActivated(false);
         return po;
@@ -96,41 +93,36 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyDTO login(String username, String password) throws UserNotFindException, PasswordErrorException, UserFreezeException {
+    public CompanyDTO login(String username, String password) {
         CompanyPO companyPO = getCompanyByUsernameOrEmail(username);
 
         if(companyPO==null){
             logger.debug("can't find user by '{}'",username);
-            throw new UserNotFindException();
+            return null;
         }
         String salt = companyPO.getSalt();
         String md5Password = EncryptUtils.md5(password + salt);
         if(md5Password.equals(companyPO.getPassword())){
-            if(companyPO.getStatus()!=1){
-                logger.debug("user status un normal,username {},status = {}",username,companyPO.getStatus());
-                throw new UserFreezeException();
-            }else{//success
-                CompanyDTO dto = new CompanyDTO();
-                BeanUtils.copyProperties(companyPO,dto);
-                logger.debug("user login success! username:{}",username);
-                return dto;
-            }
-        }else{
-            logger.debug("user password error! username:{}",username);
-            throw new PasswordErrorException();
+            CompanyDTO dto = new CompanyDTO();
+            BeanUtils.copyProperties(companyPO,dto);
+            logger.debug("user login success! username:{}",username);
+            return dto;
         }
+
+        logger.debug("user password error! username:{}",username);
+        return null;
     }
 
     @Override
     public void update(CompanyDTO company) {
-        CompanyPO po = (CompanyPO) companyDao.get(CompanyPO.class,company.getId());
+        CompanyPO po = companyDao.getById(company.getId());
         BeanUtils.copyProperties(company,po);
         companyDao.update(po);
     }
 
     @Override
     public CompanyDTO getById(Long id) {
-        CompanyPO po = (CompanyPO) companyDao.get(CompanyPO.class,id);
+        CompanyPO po = companyDao.getById(id);
         return trans2Dto(po);
     }
 

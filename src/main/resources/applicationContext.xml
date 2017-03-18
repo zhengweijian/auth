@@ -72,7 +72,7 @@
 
 
     <bean class="org.dimhat.usercenter.SystemProperties">
-        <property name="emailTimeOut" value="10"/>
+        <property name="emailValidTimeOut" value="600"/>
     </bean>
 
 

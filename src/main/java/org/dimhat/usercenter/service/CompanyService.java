@@ -1,8 +1,5 @@
 package org.dimhat.usercenter.service;
 
-import org.dimhat.usercenter.exception.user.PasswordErrorException;
-import org.dimhat.usercenter.exception.user.UserFreezeException;
-import org.dimhat.usercenter.exception.user.UserNotFindException;
 import org.dimhat.usercenter.service.dto.CompanyDTO;
 
 /**
@@ -26,7 +23,7 @@ public interface CompanyService {
      * @param password 密码
      * @return 公司对象
      */
-    CompanyDTO login(String username, String password) throws UserNotFindException, PasswordErrorException, UserFreezeException;
+    CompanyDTO login(String username, String password) ;
 
     /**
      * 更新公司信息

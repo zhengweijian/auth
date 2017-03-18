@@ -1,7 +1,8 @@
-package org.dimhat.shiro;
+package org.dimhat.shiro.session;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
+import org.dimhat.shiro.SerializableUtils;
 import org.dimhat.usercenter.dao.SessionDao;
 import org.dimhat.usercenter.dao.po.SessionPO;
 import org.springframework.beans.factory.annotation.Autowired;
