@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -124,6 +125,16 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDTO getById(Long id) {
         CompanyPO po = companyDao.getById(id);
         return trans2Dto(po);
+    }
+
+    @Override
+    public Set<String> findRoles(String username) {
+        return null;
+    }
+
+    @Override
+    public Set<String> findPermissions(String username) {
+        return null;
     }
 
     private CompanyDTO trans2Dto(CompanyPO po){

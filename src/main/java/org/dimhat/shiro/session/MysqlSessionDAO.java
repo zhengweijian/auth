@@ -29,20 +29,20 @@ public class MysqlSessionDAO implements SessionDAO{
 
     @Override
     public Session readSession(Serializable serializable) throws UnknownSessionException {
-        SessionPO po = sessionDao.get(SessionPO.class, serializable);
+        SessionPO po = sessionDao.getById(serializable);
         Session session = SerializableUtils.deserialize(po.getSession());
         return session;
     }
 
     @Override
     public void update(Session session) throws UnknownSessionException {
-        SessionPO po = sessionDao.get(SessionPO.class, session.getId());
+        SessionPO po = sessionDao.getById(session.getId());
         po.setSession(SerializableUtils.serialize(session));
     }
 
     @Override
     public void delete(Session session) {
-        SessionPO po = sessionDao.get(SessionPO.class, session.getId());
+        SessionPO po = sessionDao.getById(session.getId());
         if(po!=null){
             sessionDao.delete(po);
         }

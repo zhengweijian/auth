@@ -3,6 +3,7 @@ package org.dimhat.usercenter.service;
 import org.dimhat.usercenter.service.dto.RoleDTO;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 1.新建角色基于一个分类：客服、客服主管、运营、其他、美工、财务、线下导购
@@ -37,4 +38,7 @@ public interface RoleService {
      * @return 权限列表
      */
     List<RoleDTO> listRoleWithOffice();
+
+    Set<String> findRoles(Long... roleIds); //根据角色编号得到角色标识符列表
+    Set<String> findPermissions(Long[] roleIds); //根据角色编号得到权限字符串列表
 }

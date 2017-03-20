@@ -21,13 +21,13 @@ public class MysqlCacheSessionDAO extends CachingSessionDAO {
 
     @Override
     protected void doUpdate(Session session) {
-        SessionPO po = sessionDao.get(SessionPO.class, session.getId());
+        SessionPO po = sessionDao.getById(session.getId());
         po.setSession(SerializableUtils.serialize(session));
     }
 
     @Override
     protected void doDelete(Session session) {
-        SessionPO po = sessionDao.get(SessionPO.class, session.getId());
+        SessionPO po = sessionDao.getById(session.getId());
         if(po!=null){
             sessionDao.delete(po);
         }
@@ -42,7 +42,7 @@ public class MysqlCacheSessionDAO extends CachingSessionDAO {
 
     @Override
     protected Session doReadSession(Serializable serializable) {
-        SessionPO po = sessionDao.get(SessionPO.class, serializable);
+        SessionPO po = sessionDao.getById(serializable);
         Session session = SerializableUtils.deserialize(po.getSession());
         return session;
     }

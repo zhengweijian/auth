@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author : zwj
@@ -59,6 +60,16 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<RoleDTO> listRoleWithOffice() {
+        return null;
+    }
+
+    @Override
+    public Set<String> findRoles(Long... roleIds) {
+        return null;
+    }
+
+    @Override
+    public Set<String> findPermissions(Long[] roleIds) {
         return null;
     }
 }

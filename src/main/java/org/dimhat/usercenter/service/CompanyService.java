@@ -2,6 +2,8 @@ package org.dimhat.usercenter.service;
 
 import org.dimhat.usercenter.service.dto.CompanyDTO;
 
+import java.util.Set;
+
 /**
  * @author : zwj
  * @data : 2017/3/1
@@ -38,4 +40,6 @@ public interface CompanyService {
      */
     CompanyDTO getById(Long id);
 
+    Set<String> findRoles(String username);// 根据用户名查找其角色
+    Set<String> findPermissions(String username);// 根据用户名查找其权限
 }

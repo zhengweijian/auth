@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 /**
  * @author : zwj
  * @data : 2017/3/18
@@ -58,6 +60,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     // FIXME: 2017/3/18 hibernate分页查询
     @Override
     public PagedListHolder<EmployeeDTO> list() {
+        return null;
+    }
+
+    @Override
+    public Set<String> findRoles(String username) {
+        return null;
+    }
+
+    @Override
+    public Set<String> findPermissions(String username) {
         return null;
     }
 }

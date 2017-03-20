@@ -1,53 +1,47 @@
 package org.dimhat.shiro;
 
-import org.apache.shiro.authc.*;
-import org.apache.shiro.realm.Realm;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.dimhat.usercenter.account.EmployeeAccountManager;
 import org.dimhat.usercenter.service.CompanyService;
 import org.dimhat.usercenter.service.EmployeeService;
-import org.dimhat.usercenter.service.dto.CompanyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author : zwj
  * @data : 2017/3/18
  */
-public class UserRealm implements Realm {
+public class UserRealm extends AuthorizingRealm{
 
     @Autowired
     private CompanyService companyService;
     @Autowired
     private EmployeeService employeeService;
 
+    //认证
     @Override
-    public String getName() {
-        return "myRealm";
-    }
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 
-    @Override
-    public boolean supports(AuthenticationToken authenticationToken) {
-        if(authenticationToken instanceof UsernamePasswordToken)
-            return true;
-        return false;
-    }
-
-    //提供认证信息
-    @Override
-    public AuthenticationInfo getAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        String username = token.getUsername();
-        String password = new String(token.getPassword());
-
-        AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo();
-        if(!EmployeeAccountManager.isEmployeeAccount(username)){//公司账号登录
-            CompanyDTO companyDTO = companyService.login(username, password);
-            if(companyDTO!=null){
-
-                return authenticationInfo;
-            }
-        }else{//员工账号登录
-
-        }
         return null;
+    }
+
+    //授权
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        String username = (String)principals.getPrimaryPrincipal();
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        if(EmployeeAccountManager.isEmployeeAccount(username)){
+            authorizationInfo.setRoles(employeeService.findRoles(username));
+            authorizationInfo.setStringPermissions(employeeService.findPermissions(username));
+        }else{
+            authorizationInfo.setRoles(companyService.findRoles(username));
+            authorizationInfo.setStringPermissions(companyService.findPermissions(username));
+        }
+        return authorizationInfo;
     }
 }
